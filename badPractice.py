@@ -47,6 +47,9 @@ class Controller:
         #dead black
         self.deadB = pygame.sprite.Group()
 
+        #font
+        pygame.font.init()
+        font = pygame.font.Font("src/jf-openhuninn-1.1.ttf", 12)
 
     def mainLoop(self):
         '''
@@ -62,6 +65,13 @@ class Controller:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     sys.exit()
+
+
+
+
+
+
+
 
 
             for i in self.black:
