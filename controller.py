@@ -123,16 +123,17 @@ class Controller:
             #pygame.display.flip()
 
 
-            word = "流れてく 時の中ででも 気だるさが ほらグルグル廻って"
+            word = "流れてく時の中ででも気だるさがほらグルグル廻って私から離れる心も見えないわそう知らない？"
+            word_count = len(word)
 
             pygame.font.init()
             font = pygame.font.Font("src/jf-openhuninn-1.1.ttf", 16)
-            fontRead = font.render(word[i], True,(0,0,0))
+            fontRead = font.render(word[i % (word_count - 1)], True,(0,0,0))
             self.screen.blit(fontRead,(100,100+ 15*i))
             pygame.display.update()
             time.sleep(0.1)
 
-            if i < 26:
+            if i < 60:
                 i += 1
 
 
