@@ -8,7 +8,7 @@ class Controller:
     def __init__(self, width=1700, height=920):
         '''
         set up the window
-        args: 
+        args:
               width: (int) the width of the window, defaulted to 1700
               height: (int) the height of the window, defaulted to 920
         '''
@@ -23,7 +23,7 @@ class Controller:
         #square
         self.square = pygame.sprite.Group()
 
-        for row in range(43): 
+        for row in range(43):
             for line in range(23):
                 x = 0 + 40 * row
                 y = 0 + 40 * line
@@ -90,8 +90,11 @@ class Controller:
             pygame.display.flip()
 
 
+    def cmatrixLoop(self):
+        pygame.key.set_repeat(1,10)
 
-
+        while True:
+            
 
 
 
