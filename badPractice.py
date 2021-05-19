@@ -55,6 +55,7 @@ class Controller:
 
         #balloon
         self.balloon = Square(0, 0, 171, 320, "src/balloon.png")
+        self.ribbon = Square(0, 0, 171, 171, "src/ribbon.png")
 
         pygame.font.init()
         self.card1 = "Dear麗莎"
@@ -68,8 +69,8 @@ class Controller:
         self.card8 = "有幾個人成功轉走哈哈哈，而且身為一個孤僻鄙視周圍的人，可以找到一個一起玩鬧八卦的夥伴真的很開心！"
 
         self.card9 = "身份爆出來雖然是個小意外，但很慶幸又多了一個可以講話的人了！也感謝你不嫌棄聽我講一些奇怪的、"
-        self.card10 = "資工宅的東西(˙︶˙)如果以後電腦有問題也可以問我（？（看哪這可是工具人系裡很大很大的flag歐，"
-        self.card11 = "敝人意思意思嫌棄完還是會努力解惑的XD"
+        self.card10 = "資工宅的東西(˙︶˙)如果以後電腦有問題也可以問我（？（畢竟專業是下載東西或使用程式"
+        self.card11 = "意思意思嫌棄完還是會努力解惑的XD"
 
         self.card12 = "19歲最後一年青少年呢（嗚嗚怎麼這麼年輕´oωo`）大家都說9字尾會衰，但才沒有呢，看我們玩得多開心(？"
         self.card13 = "大學就是要這樣在很熱的太陽下玩鬧呀，然後遇到各種神奇的人類、體驗各種神奇的事情，然後盡情體驗"
@@ -201,6 +202,10 @@ class Controller:
                 self.buttons.add(self.balloon)
                 self.balloon.rect.x = pygame.mouse.get_pos()[0]-80
                 self.balloon.rect.y = pygame.mouse.get_pos()[1]-160
+            if pygame.mouse.get_pressed()[2]:
+                self.buttons.add(self.ribbon)
+                self.ribbon.rect.x = pygame.mouse.get_pos()[0]-80
+                self.ribbon.rect.y = pygame.mouse.get_pos()[1]-80
 
 
            #redraw the entire screen
@@ -251,6 +256,7 @@ class Controller:
 
             pygame.display.flip()
             self.buttons.remove(self.balloon)
+            self.buttons.remove(self.ribbon)
 
 
 
