@@ -103,7 +103,7 @@ class Controller:
 
             self.components = pygame.sprite.Group((self.square,) + (self.line,))
 
-            word = ['流れてく 時の中ででも 気だるさが ほらグルグル廻って']
+            word = '流れてく 時の中ででも 気だるさが ほらグルグル廻って'
 
 
             for i in range(27):
@@ -131,7 +131,7 @@ class Controller:
             # 4.4 設定繪製內容
             fontRead = font.render(text,True,(0,0,0))
             # 4.5 設定繪製內容的座標
-            screen.blit(fontRead,(0,y))  # 將字串繪製到該視窗上
+            self.screen.blit(fontRead,(0,y))  # 將字串繪製到該視窗上
 
 
 
