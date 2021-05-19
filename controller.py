@@ -113,28 +113,12 @@ class Controller:
             self.screen.blit(self.background, (0, 0))
             #self.components.draw(self.screen)
             #self.bs.draw(self.screen)
-            pygame.display.flip()
-            self.paint()
+            pygame.display.update()
 
 
 
-    def paint(self):
-        word = "流れてく 時の中ででも 気だるさが ほらグルグル廻って"
 
-        while True:
 
-            #exit button
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    sys.exit()
-
-            for i in range(27):
-                pygame.font.init()
-                font = pygame.font.Font("src/jf-openhuninn-1.1.ttf", 12)
-                fontRead = font.render(word[i], True,(0,0,0))
-                self.screen.blit(fontRead,(100,100+ 10*i))
-                time.sleep(0.5)
-                pygame.display.update()
 
 
 def main():
