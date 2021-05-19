@@ -19,7 +19,7 @@ class Square(pygame.sprite.Sprite):
 
 
 class Controller:
-    def __init__(self, width=1700, height=920):
+    def __init__(self, width=1600, height=960):
         '''
         set up the window
         args: 
@@ -35,14 +35,24 @@ class Controller:
         self.background = pygame.Surface(self.screen.get_size()).convert()
 
 
+        #black
+        self.black = pygame.sprite.Group()
+        squareSize = 60
+        for row in range(1700//squareSize):
+            for column in range(920//squareSize + 2):
+                x = 0 + squareSize * row
+                y = 0 + squareSize * column
+                self.black.add(Square(x, y, squareSize, squareSize, "src/black.png"))               
+
+        #dead black
+        self.deadB = pygame.sprite.Group()
 
 
     def mainLoop(self):
         '''
         start the game
         '''
-        while True:
-            self.gameLoop()
+        self.gameLoop()
 
     def gameLoop(self):
         pygame.key.set_repeat(1,10)
@@ -54,21 +64,21 @@ class Controller:
                     sys.exit()
 
 
-
-
-
-
-
-
+            for i in self.black:
+                if i.rect.collidepoint(pygame.mouse.get_pos()):
+                    self.black.remove(i)
+                    self.deadB.add(i)
 
 
 
 
             #redraw the entire screen
-            self.background = pygame.transform.scale((pygame.image.load("src/red.png")), (1700,920))
+            self.background = pygame.transform.scale((pygame.image.load("src/red.png")), (1600,960))
             self.screen.blit(self.background, (0, 0))
+            self.black.draw(self.screen)
             pygame.display.flip()
-
+            self.black.add(self.deadB)
+            self.deadB.empty()
 
 
 
