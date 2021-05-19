@@ -95,6 +95,8 @@ class Controller:
     def cmatrixLoop(self):
         pygame.key.set_repeat(1,10)
 
+        i = 0
+
         while True:
 
             #exit button
@@ -110,15 +112,28 @@ class Controller:
             #redraw the entire screen
 
             self.background = pygame.transform.scale((pygame.image.load("src/red.png")), (1700,920))
-            self.screen.blit(self.background, (0, 0))
+
+
+            if i == 0:
+                self.screen.blit(self.background, (0, 0))
+
+
             #self.components.draw(self.screen)
             #self.bs.draw(self.screen)
+            #pygame.display.flip()
+
+
+            word = "流れてく 時の中ででも 気だるさが ほらグルグル廻って"
+
+            pygame.font.init()
+            font = pygame.font.Font("src/jf-openhuninn-1.1.ttf", 16)
+            fontRead = font.render(word[i], True,(0,0,0))
+            self.screen.blit(fontRead,(100,100+ 15*i))
             pygame.display.update()
+            time.sleep(0.1)
 
-
-
-
-
+            if i < 26:
+                i += 1
 
 
 def main():
