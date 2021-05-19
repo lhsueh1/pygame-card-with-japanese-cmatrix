@@ -53,8 +53,9 @@ class Controller:
         '''
         start the game
         '''
-        while True:
-            self.gameLoop()
+        # while True:
+        #     self.gameLoop()
+        self.cmatrixLoop()
 
 
     def gameLoop(self):
@@ -94,8 +95,43 @@ class Controller:
         pygame.key.set_repeat(1,10)
 
         while True:
-            
 
+            #exit button
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    sys.exit()
+
+            self.components = pygame.sprite.Group((self.square,) + (self.line,))
+
+            word = ['流れてく 時の中ででも 気だるさが ほらグルグル廻って']
+
+
+            for i in range(27):
+                self.paint(word[i], i * 20)
+
+
+            #redraw the entire screen
+
+            self.background = pygame.transform.scale((pygame.image.load("src/red.png")), (1700,920))
+            self.screen.blit(self.background, (0, 0))
+            self.components.draw(self.screen)
+            self.bs.draw(self.screen)
+            pygame.display.flip()
+
+
+
+    def paint(self, text, y):
+        # 4.1 初始化字型
+        pygame.font.init()
+
+        # 4.2 設定字型樣式 （ps: wryh.ttf是字型庫的檔案，和專案檔案放到一個資料夾中）
+        font = pygame.font.Font("src/jf-openhuninn-1.1.ttf", 12)
+        # 4.3 迴圈迭代
+        for i in range(0,10):
+            # 4.4 設定繪製內容
+            fontRead = font.render(text,True,(0,0,0))
+            # 4.5 設定繪製內容的座標
+            screen.blit(fontRead,(0,y))  # 將字串繪製到該視窗上
 
 
 
