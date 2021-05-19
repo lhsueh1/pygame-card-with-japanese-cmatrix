@@ -46,7 +46,6 @@ class Controller:
         pygame.key.set_repeat(1,10)
 
         while True:
-
             #exit button
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
@@ -55,8 +54,15 @@ class Controller:
 
 
 
-            #redraw the entire screen
 
+
+
+
+
+
+
+
+            #redraw the entire screen
             self.background = pygame.transform.scale((pygame.image.load("src/red.png")), (1700,920))
             self.screen.blit(self.background, (0, 0))
             pygame.display.flip()
