@@ -35,6 +35,8 @@ class Controller:
         self.background = pygame.Surface(self.screen.get_size()).convert()
 
 
+
+
     def mainLoop(self):
         '''
         start the game
