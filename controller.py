@@ -166,10 +166,10 @@ class Controller:
 
                 random.shuffle(texts)
 
-                random_list = []
-                for k in range(58):
-                    n = random.randint(1,100)
-                    random_list.append(n)
+                # random_list = []
+                # for k in range(58):
+                #     n = random.randint(1,100)
+                #     random_list.append(n)
 
 
     # Deal with one single word

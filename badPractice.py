@@ -119,7 +119,7 @@ class Controller:
         '''
         start the game
         '''
-        self.gameLoop()
+        self.startLoop()
 
     def startLoop(self):
 
