@@ -159,10 +159,10 @@ class Controller:
             time.sleep(0.05)
 
             print(i)
-            if i < 74:
+            if i < 73:
                 i += 1
             else:
-                i = 1
+                i = 0
 
                 random.shuffle(texts)
 
