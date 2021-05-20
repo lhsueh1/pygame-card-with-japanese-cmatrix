@@ -166,7 +166,7 @@ class Controller:
         tsss = fontRead if (random.randint(0,20)<15) else blank
 
 
-        self.screen.blit(tsss,(30 * j, (yy * 25 + 25*i) % 920))
+        self.screen.blit(tsss,(30 * j, (yy * 25 + 25*i) % 925))
 
 def main():
     main_window = Controller()

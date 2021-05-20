@@ -119,7 +119,7 @@ class Controller:
         '''
         start the game
         '''
-        self.startLoop()
+        self.gameLoop()
 
     def startLoop(self):
 
@@ -147,20 +147,60 @@ class Controller:
     def gameLoop(self):
         pygame.key.set_repeat(1,100)
 
+        self.background = pygame.transform.scale((pygame.image.load("src/red.png")), (1600,960))
+        self.screen.blit(self.background, (0, 0))
+        y = 80
+        a = 40
+        self.background.blit(self.fontRead1,(100,y))
+        y+=a+20
+        self.background.blit(self.fontRead2,(100,y))
+        y+=a
+        self.background.blit(self.fontRead3,(100,y))
+        y+=a
+        self.background.blit(self.fontRead4,(100,y))
+        y+=a
+        self.background.blit(self.fontRead5,(100,y))
+        y+=a+20
+        self.background.blit(self.fontRead6,(100,y))
+        y+=a
+        self.background.blit(self.fontRead7,(100,y))
+        y+=a
+        self.background.blit(self.fontRead8,(100,y))
+        y+=a+20
+        self.background.blit(self.fontRead9,(100,y))
+        y+=a
+        self.background.blit(self.fontRead10,(100,y))
+        y+=a
+        self.background.blit(self.fontRead11,(100,y))
+        y+=a+20
+        self.background.blit(self.fontRead12,(100,y))
+        y+=a
+        self.background.blit(self.fontRead13,(100,y))
+        y+=a
+        self.background.blit(self.fontRead14,(100,y))
+        y+=a+20
+        self.background.blit(self.fontRead15,(100,y))
+        y+=a
+        self.background.blit(self.fontRead16,(100,y))
+        y+=a
+        self.background.blit(self.fontRead17,(100,y))
+        y+=a
+        self.background.blit(self.fontRead18,(100,y))
+        self.background.blit(self.fontRead19, (1200, y))
+        self.background.blit(self.fontRead20, (1350, y+35))
+
+        pygame.display.flip()
+
         while True:
             #exit button
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     sys.exit()
 
-
             for i in self.black:
                 if i.rect.collidepoint(pygame.mouse.get_pos()):
                     self.black.remove(i)
                     self.deadB.add(i)
-
-
-
 
             if pygame.mouse.get_pressed()[0] and self.show.rect.collidepoint(pygame.mouse.get_pos()):
                 time.sleep(0.3)
@@ -168,58 +208,57 @@ class Controller:
 
 
             #redraw the entire screen
-            self.background = pygame.transform.scale((pygame.image.load("src/red.png")), (1600,960))
             self.screen.blit(self.background, (0, 0))
-            y = 80
-            a = 40
-            self.screen.blit(self.fontRead1,(100,y))
-            y+=a+20
-            self.screen.blit(self.fontRead2,(100,y))
-            y+=a
-            self.screen.blit(self.fontRead3,(100,y))
-            y+=a
-            self.screen.blit(self.fontRead4,(100,y))
-            y+=a
-            self.screen.blit(self.fontRead5,(100,y))
-            y+=a+20
-            self.screen.blit(self.fontRead6,(100,y))
-            y+=a
-            self.screen.blit(self.fontRead7,(100,y))
-            y+=a
-            self.screen.blit(self.fontRead8,(100,y))
-            y+=a+20
-            self.screen.blit(self.fontRead9,(100,y))
-            y+=a
-            self.screen.blit(self.fontRead10,(100,y))
-            y+=a
-            self.screen.blit(self.fontRead11,(100,y))
-            y+=a+20
-            self.screen.blit(self.fontRead12,(100,y))
-            y+=a
-            self.screen.blit(self.fontRead13,(100,y))
-            y+=a
-            self.screen.blit(self.fontRead14,(100,y))
-            y+=a+20
-            self.screen.blit(self.fontRead15,(100,y))
-            y+=a
-            self.screen.blit(self.fontRead16,(100,y))
-            y+=a
-            self.screen.blit(self.fontRead17,(100,y))
-            y+=a
-            self.screen.blit(self.fontRead18,(100,y))
-            self.screen.blit(self.fontRead19, (1200, y))
-            self.screen.blit(self.fontRead20, (1350, y+35))
-
-
             self.buttons.draw(self.screen)
-
             self.black.draw(self.screen)
             pygame.display.update()
             self.black.add(self.deadB)
             self.deadB.empty()
 
     def everythingLoop(self):
-        #pygame.key.set_repeat(10)
+
+        self.background = pygame.transform.scale((pygame.image.load("src/red.png")), (1600,960))
+        self.background.blit(self.background, (0, 0))
+        y = 80
+        a = 40
+        self.background.blit(self.fontRead1,(100,y))
+        y+=a+20
+        self.background.blit(self.fontRead2,(100,y))
+        y+=a
+        self.background.blit(self.fontRead3,(100,y))
+        y+=a
+        self.background.blit(self.fontRead4,(100,y))
+        y+=a
+        self.background.blit(self.fontRead5,(100,y))
+        y+=a+20
+        self.background.blit(self.fontRead6,(100,y))
+        y+=a
+        self.background.blit(self.fontRead7,(100,y))
+        y+=a
+        self.background.blit(self.fontRead8,(100,y))
+        y+=a+20
+        self.background.blit(self.fontRead9,(100,y))
+        y+=a
+        self.background.blit(self.fontRead10,(100,y))
+        y+=a
+        self.background.blit(self.fontRead11,(100,y))
+        y+=a+20
+        self.background.blit(self.fontRead12,(100,y))
+        y+=a
+        self.background.blit(self.fontRead13,(100,y))
+        y+=a
+        self.background.blit(self.fontRead14,(100,y))
+        y+=a+20
+        self.background.blit(self.fontRead15,(100,y))
+        y+=a
+        self.background.blit(self.fontRead16,(100,y))
+        y+=a
+        self.background.blit(self.fontRead17,(100,y))
+        y+=a
+        self.background.blit(self.fontRead18,(100,y))
+        self.background.blit(self.fontRead19, (1200, y))
+        self.background.blit(self.fontRead20, (1350, y+35))
+
         while True:
             #exit button
             for event in pygame.event.get():
@@ -241,52 +280,10 @@ class Controller:
 
 
            #redraw the entire screen
-            self.background = pygame.transform.scale((pygame.image.load("src/red.png")), (1600,960))
+
             self.screen.blit(self.background, (0, 0))
-            y = 80
-            a = 40
-            self.screen.blit(self.fontRead1,(100,y))
-            y+=a+20
-            self.screen.blit(self.fontRead2,(100,y))
-            y+=a
-            self.screen.blit(self.fontRead3,(100,y))
-            y+=a
-            self.screen.blit(self.fontRead4,(100,y))
-            y+=a
-            self.screen.blit(self.fontRead5,(100,y))
-            y+=a+20
-            self.screen.blit(self.fontRead6,(100,y))
-            y+=a
-            self.screen.blit(self.fontRead7,(100,y))
-            y+=a
-            self.screen.blit(self.fontRead8,(100,y))
-            y+=a+20
-            self.screen.blit(self.fontRead9,(100,y))
-            y+=a
-            self.screen.blit(self.fontRead10,(100,y))
-            y+=a
-            self.screen.blit(self.fontRead11,(100,y))
-            y+=a+20
-            self.screen.blit(self.fontRead12,(100,y))
-            y+=a
-            self.screen.blit(self.fontRead13,(100,y))
-            y+=a
-            self.screen.blit(self.fontRead14,(100,y))
-            y+=a+20
-            self.screen.blit(self.fontRead15,(100,y))
-            y+=a
-            self.screen.blit(self.fontRead16,(100,y))
-            y+=a
-            self.screen.blit(self.fontRead17,(100,y))
-            y+=a
-            self.screen.blit(self.fontRead18,(100,y))
-            self.screen.blit(self.fontRead19, (1200, y))
-            self.screen.blit(self.fontRead20, (1350, y+35))
-
-
             self.buttons.draw(self.screen)
-
-            pygame.display.flip()
+            pygame.display.update()
             self.buttons.remove(self.balloon)
             self.buttons.remove(self.ribbon)
 
