@@ -149,7 +149,7 @@ class Controller:
             for j in range(58):
                 ranged_j = j % len(texts)
                 ranged_i = i % (len(texts[ranged_j]) - 1)
-                if i > 37: # 925/25 max words per column
+                if i >= 37: # 925/25 max words per column
                     self.paint_blank(j, i, random_list[j])
                 else:
                     self.paint_word(font, texts[ranged_j][ranged_i], j, i, random_list[j])
@@ -159,10 +159,18 @@ class Controller:
             time.sleep(0.05)
 
             print(i)
-            if i < 116:
+            if i < 74:
                 i += 1
             else:
                 i = 1
+
+                random.shuffle(texts)
+
+                random_list = []
+                for k in range(58):
+                    n = random.randint(1,100)
+                    random_list.append(n)
+
 
     # Deal with one single word
     def paint_word(self, font, word,j, i, yy):
@@ -178,6 +186,8 @@ class Controller:
     def paint_blank(self, j, i ,yy):
         blank = pygame.transform.scale((pygame.image.load("src/red.png")), (30,25))
         self.screen.blit(blank,(30 * j, (yy * 25 + 25*i) % 925))
+
+
 
 def main():
     main_window = Controller()
