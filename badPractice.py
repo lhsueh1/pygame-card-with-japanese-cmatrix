@@ -1,6 +1,7 @@
 import pygame
 import sys
 import time
+import random
 
 class Square(pygame.sprite.Sprite):
 
@@ -57,6 +58,13 @@ class Controller:
         self.balloon = Square(0, 0, 171, 320, "src/balloon.png")
         self.ribbon = Square(0, 0, 171, 171, "src/ribbon.png")
 
+        #unicorn
+        self.unicorns = pygame.sprite.Group()
+        for i in range(25):
+            x = random.randrange(-200, 1400)
+            y = random.randrange(-100, 600)
+            self.unicorns.add(Square(x, y, 303, 391, "src/uni.png"))
+
         pygame.font.init()
         self.card1 = "Dear麗莎"
         self.card2 = "生日快樂(*´ω`)人(´ω`*)"
@@ -77,8 +85,8 @@ class Controller:
         self.card14 = "跟發現，期待你之後的燦爛生活！"
 
         self.card15 = "最後完全沒有料到會是在這種情況下做出一個這麼具有遠距精神的卡片XD"
-        self.card16 = "這次前面做了一個經典的cmatrix，因為日文不是我看得懂的，所以如果有奇怪的東西出現，記得跟我說，"
-        self.card17 = "我拿去找寫的人算帳。然後這邊我堅持叫做拿手電筒照的牆壁（雖然好像有點沒fu）反正我努力了(ovo)"
+        self.card16 = "有幾個小彩蛋可以看有沒有成功觸發，成功召喚出氣球跟彩帶就差不多了，剩下就是程式特色（漏洞）了w"
+        self.card17 = "然後這邊我堅持叫做拿手電筒照的牆壁（雖然好像有點沒fu）反正我努力了(ovo)"
         self.card18 = "希望你會喜歡，然後有「啊！這就是有個資工朋友的感覺！」XD <3"
         self.card19 = "亦絢ˊˇˋ"
         self.card20 = "5/22/2021"
@@ -111,7 +119,30 @@ class Controller:
         '''
         start the game
         '''
-        self.gameLoop()
+        self.startLoop()
+
+    def startLoop(self):
+
+
+        while True:
+            #exit button
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    sys.exit()    
+            
+            for uni in self.unicorns:        
+                if pygame.mouse.get_pressed()[0] and uni.rect.collidepoint(pygame.mouse.get_pos()):
+                    #time.sleep(0.3)
+                    self.unicorns.remove(uni)
+
+            if not self.unicorns:
+                self.gameLoop()
+
+            self.background = pygame.transform.scale((pygame.image.load("src/black.png")), (1600,960))
+            self.screen.blit(self.background, (0, 0))
+            self.unicorns.draw(self.screen)
+            pygame.display.update()
+
 
     def gameLoop(self):
         pygame.key.set_repeat(1,100)
@@ -127,6 +158,7 @@ class Controller:
                 if i.rect.collidepoint(pygame.mouse.get_pos()):
                     self.black.remove(i)
                     self.deadB.add(i)
+
 
 
 
