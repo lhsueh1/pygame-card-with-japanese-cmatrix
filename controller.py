@@ -99,6 +99,11 @@ class Controller:
         texts = f.readlines()
         random.shuffle(texts)
 
+        random_list = []
+        for i in range(56):
+            n = random.randint(1,20)
+            random_list.append(n)
+
         i = 0
 
         while True:
@@ -138,7 +143,7 @@ class Controller:
             for j in range(56):
                 ranged_j = j % len(texts)
                 ranged_i = i % (len(texts[ranged_j]) - 1)
-                self.paint_word(font, texts[ranged_j][ranged_i], j, i)
+                self.paint_word(font, texts[ranged_j][ranged_i], j, i, random_list[j])
 
 
             pygame.display.update()
@@ -148,9 +153,9 @@ class Controller:
                 i += 1
 
     # Deal with one single word
-    def paint_word(self, font, word,j, i):
+    def paint_word(self, font, word,j, i, yy):
         fontRead = font.render(word, True,(0,0,0))
-        self.screen.blit(fontRead,(10 + 30 * j, 10+ 25*i))
+        self.screen.blit(fontRead,(10 + 30 * j, yy * 25 + 10 + 25*i))
 
 def main():
     main_window = Controller()
