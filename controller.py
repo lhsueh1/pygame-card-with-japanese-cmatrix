@@ -97,11 +97,16 @@ class Controller:
 
         f = open("src/bad_apple.txt")
         texts = f.readlines()
+
+        # for k in range(len(texts)):
+        #     for jk in range(58 - len(texts[k])):
+        #         texts[k] += " "
+
         random.shuffle(texts)
 
         random_list = []
-        for k in range(56):
-            n = random.randint(1,50)
+        for k in range(58):
+            n = random.randint(1,100)
             random_list.append(n)
 
         i = 0
@@ -140,19 +145,21 @@ class Controller:
             pygame.font.init()
             font = pygame.font.Font("src/jf-openhuninn-1.1.ttf", 24)
 
-            for j in range(56):
+            # rows
+            for j in range(58):
                 ranged_j = j % len(texts)
                 ranged_i = i % (len(texts[ranged_j]) - 1)
-                if ranged_i < i:
-                    self.paint_word(font, " ", j, i, random_list[j])
+                if i > 37: # 925/25 max words per column
+                    self.paint_blank(j, i, random_list[j])
                 else:
                     self.paint_word(font, texts[ranged_j][ranged_i], j, i, random_list[j])
 
 
             pygame.display.update()
-            time.sleep(0.1)
+            time.sleep(0.05)
 
-            if i < 120:
+            print(i)
+            if i < 116:
                 i += 1
             else:
                 i = 1
@@ -163,10 +170,14 @@ class Controller:
         blank = pygame.transform.scale((pygame.image.load("src/red.png")), (30,25))
 
         # random not paint word
-        tsss = fontRead if (random.randint(0,20)<15) else blank
+        tsss = fontRead if (random.randint(0,20)<20) else blank
 
 
         self.screen.blit(tsss,(30 * j, (yy * 25 + 25*i) % 925))
+
+    def paint_blank(self, j, i ,yy):
+        blank = pygame.transform.scale((pygame.image.load("src/red.png")), (30,25))
+        self.screen.blit(blank,(30 * j, (yy * 25 + 25*i) % 925))
 
 def main():
     main_window = Controller()
