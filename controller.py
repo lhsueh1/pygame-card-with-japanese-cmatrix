@@ -18,7 +18,7 @@ class Controller:
         pygame.init()
         self.width = width
         self.height = height
-        self.screen = pygame.display.set_mode((0,0),pygame.FULLSCREEN)
+        self.screen = pygame.display.set_mode((self.width, self.height), pygame.FULLSCREEN)
         self.background = pygame.Surface(self.screen.get_size()).convert()
 
         #square
@@ -69,6 +69,10 @@ class Controller:
                 if event.type == pygame.QUIT:
                     sys.exit()
 
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_SPACE:
+                        sys.exit()
+
             self.components = pygame.sprite.Group((self.square,) + (self.line,))
 
             #click square disappear
@@ -97,12 +101,12 @@ class Controller:
     def cmatrixLoop(self):
         pygame.key.set_repeat(1,10)
 
-        f = open("src/bad_apple.txt")
+        f = open("src/bad_apple.txt", encoding="utf-8")
         texts = f.readlines()
 
-        # for k in range(len(texts)):
-        #     for jk in range(58 - len(texts[k])):
-        #         texts[k] += " "
+        for k in range(len(texts)):
+            for jk in range(58 - len(texts[k])):
+                texts[k] += " "
 
         random.shuffle(texts)
 
@@ -121,6 +125,11 @@ class Controller:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     sys.exit()
+
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_SPACE:
+                        sys.exit()
+
 
             self.components = pygame.sprite.Group((self.square,) + (self.line,))
 

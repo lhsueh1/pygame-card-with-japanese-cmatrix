@@ -2,6 +2,8 @@ import pygame
 import sys
 import time
 import random
+import src
+
 
 class Square(pygame.sprite.Sprite):
 
@@ -21,7 +23,7 @@ class Square(pygame.sprite.Sprite):
 
 
 class Controller:
-    def __init__(self, width=1600, height=960):
+    def __init__(self, width=1120, height=672):
         '''
         set up the window
         args: 
@@ -39,9 +41,9 @@ class Controller:
 
         #black
         self.black = pygame.sprite.Group()
-        squareSize = 70
-        for row in range(1700//squareSize):
-            for column in range(920//squareSize + 2):
+        squareSize = 49
+        for row in range(pygame.display.get_window_size()[0]//squareSize+2):
+            for column in range((pygame.display.get_window_size()[1])//squareSize + 2):
                 x = 0 + squareSize * row
                 y = 0 + squareSize * column
                 self.black.add(Square(x, y, squareSize, squareSize, "src/black.png"))               
@@ -51,19 +53,19 @@ class Controller:
 
         #button
         self.buttons = pygame.sprite.Group()
-        self.show = Square(1600-squareSize, 0, squareSize, squareSize, "src/pink.png")
+        self.show = Square(pygame.display.get_window_size()[0]-squareSize, 0, squareSize, squareSize, "src/pink.png")
         self.buttons.add(self.show)
 
         #balloon
-        self.balloon = Square(0, 0, 171, 320, "src/balloon.png")
-        self.ribbon = Square(0, 0, 171, 171, "src/ribbon.png")
+        self.balloon = Square(0, 0, 120, 224, "src/balloon.png")
+        self.ribbon = Square(0, 0, 120, 120, "src/ribbon.png")
 
         #unicorn
         self.unicorns = pygame.sprite.Group()
         for i in range(25):
-            x = random.randrange(-200, 1400)
-            y = random.randrange(-100, 600)
-            self.unicorns.add(Square(x, y, 303, 391, "src/uni.png"))
+            x = random.randrange(-140, pygame.display.get_window_size()[0]-200)
+            y = random.randrange(-70, pygame.display.get_window_size()[1]-300)
+            self.unicorns.add(Square(x, y, 212, 273, "src/uni.png"))
 
         pygame.font.init()
         self.card1 = "Dear麗莎"
@@ -92,7 +94,7 @@ class Controller:
         self.card20 = "5/22/2021"
 
 
-        font = pygame.font.Font("src/jf-openhuninn-1.1.ttf", 24)
+        font = pygame.font.Font("src/jf-openhuninn-1.1.ttf", 20)
         self.fontRead1 = font.render(self.card1, False,(0,0,0))
         self.fontRead2 = font.render(self.card2, False,(0,0,0))
         self.fontRead3 = font.render(self.card3, False,(0,0,0))
@@ -111,182 +113,178 @@ class Controller:
         self.fontRead16 = font.render(self.card16, False,(0,0,0))
         self.fontRead17 = font.render(self.card17, False,(0,0,0))
         self.fontRead18 = font.render(self.card18, False,(0,0,0))
-        self.fontRead19 = pygame.font.Font("src/jf-openhuninn-1.1.ttf", 35).render(self.card19, False,(0,0,0))
-        self.fontRead20 = pygame.font.Font("src/jf-openhuninn-1.1.ttf", 18).render(self.card20, False,(0,0,0))
+        self.fontRead19 = pygame.font.Font("src/jf-openhuninn-1.1.ttf", 30).render(self.card19, False,(0,0,0))
+        self.fontRead20 = pygame.font.Font("src/jf-openhuninn-1.1.ttf", 16).render(self.card20, False,(0,0,0))
 
         self.state = "PAGE0"
 
-    def mainLoop(self):
-        '''
-        start the game
-        '''
-        self.startLoop()
 
     def startLoop(self):
 
+        while True:
+            while self.state == "PAGE0":
+                #exit button
+                for event in pygame.event.get():
+                    if event.type == pygame.QUIT:
+                        sys.exit()    
+                
+                for uni in self.unicorns:        
+                    if pygame.mouse.get_pressed()[0] and uni.rect.collidepoint(pygame.mouse.get_pos()):
+                        #time.sleep(0.3)
+                        self.unicorns.remove(uni)
 
-        while self.state == "PAGE0":
-            #exit button
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    sys.exit()    
-            
-            for uni in self.unicorns:        
-                if pygame.mouse.get_pressed()[0] and uni.rect.collidepoint(pygame.mouse.get_pos()):
+                if not self.unicorns:
+                    self.state = "PAGE1"
+
+                self.background = pygame.transform.scale((pygame.image.load("src/black.png")), (1600,960))
+                self.screen.blit(self.background, (0, 0))
+                self.unicorns.draw(self.screen)
+                pygame.display.update()
+
+            if (self.state == "PAGE1") or (self.state == "PAGE2"):
+                self.background = pygame.transform.scale((pygame.image.load("src/red.png")), pygame.display.get_window_size())
+                self.screen.blit(self.background, (0, 0))
+                y = 56
+                a = 28
+                self.background.blit(self.fontRead1,(70,y))
+                y+=a+14
+                self.background.blit(self.fontRead2,(70,y))
+                y+=a
+                self.background.blit(self.fontRead3,(70,y))
+                y+=a
+                self.background.blit(self.fontRead4,(70,y))
+                y+=a
+                self.background.blit(self.fontRead5,(70,y))
+                y+=a+14
+                self.background.blit(self.fontRead6,(70,y))
+                y+=a
+                self.background.blit(self.fontRead7,(70,y))
+                y+=a
+                self.background.blit(self.fontRead8,(70,y))
+                y+=a+14
+                self.background.blit(self.fontRead9,(70,y))
+                y+=a
+                self.background.blit(self.fontRead10,(70,y))
+                y+=a
+                self.background.blit(self.fontRead11,(70,y))
+                y+=a+14
+                self.background.blit(self.fontRead12,(70,y))
+                y+=a
+                self.background.blit(self.fontRead13,(70,y))
+                y+=a
+                self.background.blit(self.fontRead14,(70,y))
+                y+=a+14
+                self.background.blit(self.fontRead15,(70,y))
+                y+=a
+                self.background.blit(self.fontRead16,(70,y))
+                y+=a
+                self.background.blit(self.fontRead17,(70,y))
+                y+=a
+                self.background.blit(self.fontRead18,(70,y))
+                self.background.blit(self.fontRead19, (840, y))
+                self.background.blit(self.fontRead20, (945, y+30))
+
+                if self.state == "PAGE1":
+                    self.state = "PAGE1-1"
+                if self.state == "PAGE2":
+                    self.state = "PAGE2-1"
+
+            while self.state == "PAGE1-1":
+                #exit button
+                for event in pygame.event.get():
+                    if event.type == pygame.QUIT:
+                        sys.exit()
+
+                for i in self.black:
+                    if i.rect.collidepoint(pygame.mouse.get_pos()):
+                        self.black.remove(i)
+                        self.deadB.add(i)
+
+                self.show.rect.y = 0
+                if pygame.mouse.get_pressed()[0] and self.show.rect.collidepoint(pygame.mouse.get_pos()):
                     #time.sleep(0.3)
-                    self.unicorns.remove(uni)
-
-            if not self.unicorns:
-                self.state = "PAGE1"
-
-            self.background = pygame.transform.scale((pygame.image.load("src/black.png")), (1600,960))
-            self.screen.blit(self.background, (0, 0))
-            self.unicorns.draw(self.screen)
-            pygame.display.update()
-
-        if self.state == "PAGE1":
-            self.background = pygame.transform.scale((pygame.image.load("src/red.png")), (1600,960))
-            self.screen.blit(self.background, (0, 0))
-            y = 80
-            a = 40
-            self.background.blit(self.fontRead1,(100,y))
-            y+=a+20
-            self.background.blit(self.fontRead2,(100,y))
-            y+=a
-            self.background.blit(self.fontRead3,(100,y))
-            y+=a
-            self.background.blit(self.fontRead4,(100,y))
-            y+=a
-            self.background.blit(self.fontRead5,(100,y))
-            y+=a+20
-            self.background.blit(self.fontRead6,(100,y))
-            y+=a
-            self.background.blit(self.fontRead7,(100,y))
-            y+=a
-            self.background.blit(self.fontRead8,(100,y))
-            y+=a+20
-            self.background.blit(self.fontRead9,(100,y))
-            y+=a
-            self.background.blit(self.fontRead10,(100,y))
-            y+=a
-            self.background.blit(self.fontRead11,(100,y))
-            y+=a+20
-            self.background.blit(self.fontRead12,(100,y))
-            y+=a
-            self.background.blit(self.fontRead13,(100,y))
-            y+=a
-            self.background.blit(self.fontRead14,(100,y))
-            y+=a+20
-            self.background.blit(self.fontRead15,(100,y))
-            y+=a
-            self.background.blit(self.fontRead16,(100,y))
-            y+=a
-            self.background.blit(self.fontRead17,(100,y))
-            y+=a
-            self.background.blit(self.fontRead18,(100,y))
-            self.background.blit(self.fontRead19, (1200, y))
-            self.background.blit(self.fontRead20, (1350, y+35))
-
-            pygame.display.flip()
-
-            self.state = "PAGE1-1"
-
-        while self.state == "PAGE1-1":
-            #exit button
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    sys.exit()
-
-            for i in self.black:
-                if i.rect.collidepoint(pygame.mouse.get_pos()):
-                    self.black.remove(i)
-                    self.deadB.add(i)
-
-            if pygame.mouse.get_pressed()[0] and self.show.rect.collidepoint(pygame.mouse.get_pos()):
-                time.sleep(0.3)
-                self.state = "PAGE2"
+                    self.state = "PAGE2"
 
 
-            #redraw the entire screen
-            self.screen.blit(self.background, (0, 0))
-            self.buttons.draw(self.screen)
-            self.black.draw(self.screen)
-            pygame.display.update()
-            self.black.add(self.deadB)
-            self.deadB.empty()
+                #redraw the entire screen
+                self.screen.blit(self.background, (0, 0))
+                self.buttons.draw(self.screen)
+                self.black.draw(self.screen)
+                pygame.display.update()
+                self.black.add(self.deadB)
+                self.deadB.empty()
 
-        if self.state == "PAGE2":
-            self.background = pygame.transform.scale((pygame.image.load("src/red.png")), (1600,960))
-            self.background.blit(self.background, (0, 0))
-            y = 80
-            a = 40
-            self.background.blit(self.fontRead1,(100,y))
-            y+=a+20
-            self.background.blit(self.fontRead2,(100,y))
-            y+=a
-            self.background.blit(self.fontRead3,(100,y))
-            y+=a
-            self.background.blit(self.fontRead4,(100,y))
-            y+=a
-            self.background.blit(self.fontRead5,(100,y))
-            y+=a+20
-            self.background.blit(self.fontRead6,(100,y))
-            y+=a
-            self.background.blit(self.fontRead7,(100,y))
-            y+=a
-            self.background.blit(self.fontRead8,(100,y))
-            y+=a+20
-            self.background.blit(self.fontRead9,(100,y))
-            y+=a
-            self.background.blit(self.fontRead10,(100,y))
-            y+=a
-            self.background.blit(self.fontRead11,(100,y))
-            y+=a+20
-            self.background.blit(self.fontRead12,(100,y))
-            y+=a
-            self.background.blit(self.fontRead13,(100,y))
-            y+=a
-            self.background.blit(self.fontRead14,(100,y))
-            y+=a+20
-            self.background.blit(self.fontRead15,(100,y))
-            y+=a
-            self.background.blit(self.fontRead16,(100,y))
-            y+=a
-            self.background.blit(self.fontRead17,(100,y))
-            y+=a
-            self.background.blit(self.fontRead18,(100,y))
-            self.background.blit(self.fontRead19, (1200, y))
-            self.background.blit(self.fontRead20, (1350, y+35))
+                self.background = pygame.transform.scale((pygame.image.load("src/red.png")), pygame.display.get_window_size())
+                self.background.blit(self.background, (0, 0))
+                y = 56
+                a = 28
+                self.background.blit(self.fontRead1,(70,y))
+                y+=a+14
+                self.background.blit(self.fontRead2,(70,y))
+                y+=a
+                self.background.blit(self.fontRead3,(70,y))
+                y+=a
+                self.background.blit(self.fontRead4,(70,y))
+                y+=a
+                self.background.blit(self.fontRead5,(70,y))
+                y+=a+14
+                self.background.blit(self.fontRead6,(70,y))
+                y+=a
+                self.background.blit(self.fontRead7,(70,y))
+                y+=a
+                self.background.blit(self.fontRead8,(70,y))
+                y+=a+14
+                self.background.blit(self.fontRead9,(70,y))
+                y+=a
+                self.background.blit(self.fontRead10,(70,y))
+                y+=a
+                self.background.blit(self.fontRead11,(70,y))
+                y+=a+14
+                self.background.blit(self.fontRead12,(70,y))
+                y+=a
+                self.background.blit(self.fontRead13,(70,y))
+                y+=a
+                self.background.blit(self.fontRead14,(70,y))
+                y+=a+14
+                self.background.blit(self.fontRead15,(70,y))
+                y+=a
+                self.background.blit(self.fontRead16,(70,y))
+                y+=a
+                self.background.blit(self.fontRead17,(70,y))
+                y+=a
+                self.background.blit(self.fontRead18,(70,y))
+                self.background.blit(self.fontRead19, (840, y))
+                self.background.blit(self.fontRead20, (945, y+35))
 
-            self.state = "PAGE2-1"
+            while self.state == "PAGE2-1":
+                #exit button
+                for event in pygame.event.get():
+                    if event.type == pygame.QUIT:
+                        sys.exit()
 
-        while self.state == "PAGE2-1":
-            #exit button
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    sys.exit()
+                self.show.rect.y = 70
 
-            if pygame.mouse.get_pressed()[0] and self.show.rect.collidepoint(pygame.mouse.get_pos()):
-                time.sleep(0.3)
-                self.state = "PAGE1"
+                if pygame.mouse.get_pressed()[0] and self.show.rect.collidepoint(pygame.mouse.get_pos()):
+                    #time.sleep(1)
+                    self.state = "PAGE1"
 
-            if pygame.mouse.get_pressed()[0]:
-                self.buttons.add(self.balloon)
-                self.balloon.rect.x = pygame.mouse.get_pos()[0]-80
-                self.balloon.rect.y = pygame.mouse.get_pos()[1]-160
-            if pygame.mouse.get_pressed()[2]:
-                self.buttons.add(self.ribbon)
-                self.ribbon.rect.x = pygame.mouse.get_pos()[0]-80
-                self.ribbon.rect.y = pygame.mouse.get_pos()[1]-80
+                if pygame.mouse.get_pressed()[0]:
+                    self.buttons.add(self.balloon)
+                    self.balloon.rect.x = pygame.mouse.get_pos()[0]-56
+                    self.balloon.rect.y = pygame.mouse.get_pos()[1]-112
+                if pygame.mouse.get_pressed()[2]:
+                    self.buttons.add(self.ribbon)
+                    self.ribbon.rect.x = pygame.mouse.get_pos()[0]-56
+                    self.ribbon.rect.y = pygame.mouse.get_pos()[1]-56
 
 
-           #redraw the entire screen
+                #redraw the entire screen
 
-            self.screen.blit(self.background, (0, 0))
-            self.buttons.draw(self.screen)
-            pygame.display.update()
-            self.buttons.remove(self.balloon)
-            self.buttons.remove(self.ribbon)
+                self.screen.blit(self.background, (0, 0))
+                self.buttons.draw(self.screen)
+                pygame.display.update()
+                self.buttons.remove(self.balloon)
+                self.buttons.remove(self.ribbon)
 
 
 
@@ -296,5 +294,5 @@ class Controller:
 
 def main():
     main_window = Controller()
-    main_window.mainLoop()
+    main_window.startLoop()
 main()
