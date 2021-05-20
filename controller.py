@@ -107,8 +107,8 @@ class Controller:
         for k in range(len(texts)):
             for jk in range(58 - len(texts[k])):
                 space = ['按', '空', '白', '鍵']
-                texts[k] += " "
-                #texts[k] += space[random.randint(0, len(space)-1)]
+                #texts[k] += " "
+                texts[k] += space[random.randint(0, len(space)-1)]
 
         random.shuffle(texts)
 
