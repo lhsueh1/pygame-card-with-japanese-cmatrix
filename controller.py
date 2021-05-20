@@ -159,17 +159,17 @@ class Controller:
             time.sleep(0.05)
 
             print(i)
-            if i < 74:
+            if i < 73:
                 i += 1
             else:
-                i = 1
+                i = 0
 
                 random.shuffle(texts)
 
-                random_list = []
-                for k in range(58):
-                    n = random.randint(1,100)
-                    random_list.append(n)
+                # random_list = []
+                # for k in range(58):
+                #     n = random.randint(1,100)
+                #     random_list.append(n)
 
 
     # Deal with one single word
