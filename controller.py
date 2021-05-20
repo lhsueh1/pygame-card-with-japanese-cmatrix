@@ -2,7 +2,7 @@ import pygame
 import sys
 import time
 from src import Square
-
+import random
 
 
 class Controller:
@@ -95,6 +95,10 @@ class Controller:
     def cmatrixLoop(self):
         pygame.key.set_repeat(1,10)
 
+        f = open("src/bad_apple.txt")
+        texts = f.readlines()
+        random.shuffle(texts)
+
         i = 0
 
         while True:
@@ -123,19 +127,30 @@ class Controller:
             #pygame.display.flip()
 
 
-            word = "流れてく時の中ででも気だるさがほらグルグル廻って私から離れる心も見えないわそう知らない？"
-            word_count = len(word)
+            # word = "流れてく時の中ででも気だるさがほらグルグル廻って私から離れる心も見えないわそう知らない？"
+            # word_count = len(word)
+
+
 
             pygame.font.init()
-            font = pygame.font.Font("src/jf-openhuninn-1.1.ttf", 16)
-            fontRead = font.render(word[i % (word_count - 1)], True,(0,0,0))
-            self.screen.blit(fontRead,(100,100+ 15*i))
+            font = pygame.font.Font("src/jf-openhuninn-1.1.ttf", 24)
+
+            for j in range(56):
+                ranged_j = j % len(texts)
+                ranged_i = i % (len(texts[ranged_j]) - 1)
+                self.paint_word(font, texts[ranged_j][ranged_i], j, i)
+
+
             pygame.display.update()
             time.sleep(0.1)
 
             if i < 60:
                 i += 1
 
+    # Deal with one single word
+    def paint_word(self, font, word,j, i):
+        fontRead = font.render(word, True,(0,0,0))
+        self.screen.blit(fontRead,(10 + 30 * j, 10+ 25*i))
 
 def main():
     main_window = Controller()
