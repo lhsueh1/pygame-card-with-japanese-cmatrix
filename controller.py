@@ -106,7 +106,9 @@ class Controller:
 
         for k in range(len(texts)):
             for jk in range(58 - len(texts[k])):
-                texts[k] += " "
+                space = ['按', '空', '白', '鍵']
+                #texts[k] += " "
+                texts[k] += space[random.randint(0, len(space)-1)]
 
         random.shuffle(texts)
 
@@ -167,15 +169,12 @@ class Controller:
                 if i >= (h / 25): # screen height /25 max words per column
                     self.paint_blank(j, i, random_list[ranged_j], h)
                 else:
-                    print(ranged_i)
                     self.paint_word(font, texts[ranged_j][ranged_i], j, i, random_list[ranged_j],h)
-                #print(j)
 
 
             pygame.display.update()
             time.sleep(0.05)
 
-            print(i)
             if i < ((h / 25) * 2 - 1):
                 i += 1
             else:
@@ -183,10 +182,10 @@ class Controller:
 
                 random.shuffle(texts)
 
-                # random_list = []
-                # for k in range(58):
-                #     n = random.randint(1,100)
-                #     random_list.append(n)
+                random_list = []
+                for k in range(58):
+                    n = random.randint(1,100)
+                    random_list.append(n)
 
 
     # Deal with one single word
