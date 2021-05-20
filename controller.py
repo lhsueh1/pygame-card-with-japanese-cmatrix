@@ -6,7 +6,7 @@ import random
 
 
 class Controller:
-    def __init__(self, width=1700, height=920):
+    def __init__(self, width=2560, height=1440):
         '''
         set up the window
         args:
@@ -18,7 +18,7 @@ class Controller:
         pygame.init()
         self.width = width
         self.height = height
-        self.screen = pygame.display.set_mode((self.width, self.height))
+        self.screen = pygame.display.set_mode((0,0),pygame.FULLSCREEN)
         self.background = pygame.Surface(self.screen.get_size()).convert()
 
         #square
@@ -85,7 +85,9 @@ class Controller:
 
             #redraw the entire screen
 
-            self.background = pygame.transform.scale((pygame.image.load("src/red.png")), (1700,920))
+            w, h = pygame.display.get_surface().get_size()
+
+            self.background = pygame.transform.scale((pygame.image.load("src/red.png")), (w,h))
             self.screen.blit(self.background, (0, 0))
             self.components.draw(self.screen)
             self.bs.draw(self.screen)
@@ -111,6 +113,8 @@ class Controller:
 
         i = 0
 
+        w, h = pygame.display.get_surface().get_size()
+
         while True:
 
             #exit button
@@ -124,8 +128,10 @@ class Controller:
 
 
             #redraw the entire screen
+            self.background = pygame.transform.scale((pygame.image.load("src/kinda_black.png")), (w,h))
 
-            self.background = pygame.transform.scale((pygame.image.load("src/kinda_black.png")), (1800,925))
+            # after making the background fill in black, set width to fit size of words
+            h = h - (h % 25)
 
 
             if i == 0:
@@ -146,20 +152,22 @@ class Controller:
             font = pygame.font.Font("src/jf-openhuninn-1.1.ttf", 24)
 
             # rows
-            for j in range(58):
+            for j in range(w//30):
                 ranged_j = j % len(texts)
                 ranged_i = i % (len(texts[ranged_j]) - 1)
-                if i >= 37: # 925/25 max words per column
-                    self.paint_blank(j, i, random_list[j])
+                if i >= (h / 25): # screen height /25 max words per column
+                    self.paint_blank(j, i, random_list[ranged_j], h)
                 else:
-                    self.paint_word(font, texts[ranged_j][ranged_i], j, i, random_list[j])
+                    print(ranged_i)
+                    self.paint_word(font, texts[ranged_j][ranged_i], j, i, random_list[ranged_j],h)
+                #print(j)
 
 
             pygame.display.update()
             time.sleep(0.05)
 
             print(i)
-            if i < 73:
+            if i < ((h / 25) * 2 - 1):
                 i += 1
             else:
                 i = 0
@@ -173,13 +181,13 @@ class Controller:
 
 
     # Deal with one single word
-    def paint_word(self, font, word,j, i, yy):
+    def paint_word(self, font, word,j, i, yy,h):
         fontRead = font.render(word, True,(random.randint(180,255),random.randint(180,255),random.randint(180,255)))
-        self.screen.blit(fontRead,(30 * j, (yy * 25 + 25*i) % 925))
+        self.screen.blit(fontRead,(30 * j, (yy * 25 + 25*i) % h))
 
-    def paint_blank(self, j, i ,yy):
+    def paint_blank(self, j, i ,yy, h):
         blank = pygame.transform.scale((pygame.image.load("src/kinda_black.png")), (30,25))
-        self.screen.blit(blank,(30 * j, (yy * 25 + 25*i) % 925))
+        self.screen.blit(blank,(30 * j, (yy * 25 + 25*i) % h))
 
 
 
