@@ -174,7 +174,7 @@ class Controller:
 
     # Deal with one single word
     def paint_word(self, font, word,j, i, yy):
-        fontRead = font.render(word, True,(random.randint(120,255),random.randint(120,255),random.randint(120,255)))
+        fontRead = font.render(word, True,(random.randint(180,255),random.randint(180,255),random.randint(180,255)))
         self.screen.blit(fontRead,(30 * j, (yy * 25 + 25*i) % 925))
 
     def paint_blank(self, j, i ,yy):
