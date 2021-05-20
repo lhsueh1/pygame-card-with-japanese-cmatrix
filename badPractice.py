@@ -92,7 +92,7 @@ class Controller:
         self.card20 = "5/22/2021"
 
 
-        font = pygame.font.Font("src/jf-openhuninn-1.1.ttf", 22)
+        font = pygame.font.Font("src/jf-openhuninn-1.1.ttf", 24)
         self.fontRead1 = font.render(self.card1, False,(0,0,0))
         self.fontRead2 = font.render(self.card2, False,(0,0,0))
         self.fontRead3 = font.render(self.card3, False,(0,0,0))
