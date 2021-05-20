@@ -100,8 +100,8 @@ class Controller:
         random.shuffle(texts)
 
         random_list = []
-        for i in range(56):
-            n = random.randint(1,20)
+        for k in range(56):
+            n = random.randint(1,50)
             random_list.append(n)
 
         i = 0
@@ -120,7 +120,7 @@ class Controller:
 
             #redraw the entire screen
 
-            self.background = pygame.transform.scale((pygame.image.load("src/red.png")), (1700,920))
+            self.background = pygame.transform.scale((pygame.image.load("src/red.png")), (1800,925))
 
 
             if i == 0:
@@ -143,19 +143,30 @@ class Controller:
             for j in range(56):
                 ranged_j = j % len(texts)
                 ranged_i = i % (len(texts[ranged_j]) - 1)
-                self.paint_word(font, texts[ranged_j][ranged_i], j, i, random_list[j])
+                if ranged_i < i:
+                    self.paint_word(font, " ", j, i, random_list[j])
+                else:
+                    self.paint_word(font, texts[ranged_j][ranged_i], j, i, random_list[j])
 
 
             pygame.display.update()
             time.sleep(0.1)
 
-            if i < 60:
+            if i < 120:
                 i += 1
+            else:
+                i = 1
 
     # Deal with one single word
     def paint_word(self, font, word,j, i, yy):
         fontRead = font.render(word, True,(0,0,0))
-        self.screen.blit(fontRead,(10 + 30 * j, yy * 25 + 10 + 25*i))
+        blank = pygame.transform.scale((pygame.image.load("src/red.png")), (30,25))
+
+        # random not paint word
+        tsss = fontRead if (random.randint(0,20)<15) else blank
+
+
+        self.screen.blit(tsss,(30 * j, (yy * 25 + 25*i) % 920))
 
 def main():
     main_window = Controller()
