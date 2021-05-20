@@ -125,7 +125,7 @@ class Controller:
 
             #redraw the entire screen
 
-            self.background = pygame.transform.scale((pygame.image.load("src/red.png")), (1800,925))
+            self.background = pygame.transform.scale((pygame.image.load("src/kinda_black.png")), (1800,925))
 
 
             if i == 0:
@@ -174,17 +174,11 @@ class Controller:
 
     # Deal with one single word
     def paint_word(self, font, word,j, i, yy):
-        fontRead = font.render(word, True,(0,0,0))
-        blank = pygame.transform.scale((pygame.image.load("src/red.png")), (30,25))
-
-        # random not paint word
-        tsss = fontRead if (random.randint(0,20)<20) else blank
-
-
-        self.screen.blit(tsss,(30 * j, (yy * 25 + 25*i) % 925))
+        fontRead = font.render(word, True,(random.randint(120,255),random.randint(120,255),random.randint(120,255)))
+        self.screen.blit(fontRead,(30 * j, (yy * 25 + 25*i) % 925))
 
     def paint_blank(self, j, i ,yy):
-        blank = pygame.transform.scale((pygame.image.load("src/red.png")), (30,25))
+        blank = pygame.transform.scale((pygame.image.load("src/kinda_black.png")), (30,25))
         self.screen.blit(blank,(30 * j, (yy * 25 + 25*i) % 925))
 
 
