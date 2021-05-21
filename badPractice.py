@@ -70,30 +70,35 @@ class Controller:
         #     self.unicorns.add(Square(x, y, 212, 273, "src/uni.png"))
 
         pygame.font.init()
-        self.card1 = "Dear麗莎"
-        self.card2 = "生日快樂(*´ω`)人(´ω`*)"
-        self.card3 = "我成大第一個(或唯一?)的朋朋！我們也這樣玩了一個大一了，從上學期每個星期二的超趕午餐、星期五"
-        self.card4 = "的餐廳抉擇，到這學期「不知道」「那茶朵吧」的星期二五，還有每次都變波哥的珍妮花，我們就這樣"
-        self.card5 = "愉快地遠離育樂街覓食，真的有幸然後一起吃喝重新探索成大！"
 
-        self.card6 = "也因為很意外地認識了，讓我有機會體驗很多原本以為無緣的大學生日常，像第一次上大學一樣，比你幼"
-        self.card7 = "稚地各種新奇興奮，雖然明年可能沒辦法再一起吐嘈抱怨，但我們還是要保持聯絡歐，我好想知道接下來"
-        self.card8 = "有幾個人成功轉走哈哈哈，而且身為一個孤僻鄙視周圍的人，可以找到一個一起玩鬧八卦的夥伴真的很開心！"
+        file = open("src/card.txt", encoding="utf-8")
 
-        self.card9 = "身份爆出來雖然是個小意外，但很慶幸又多了一個可以講話的人了！也感謝你不嫌棄聽我講一些奇怪的、"
-        self.card10 = "資工宅的東西(˙︶˙)如果以後電腦有問題也可以問我（？（畢竟專業是下載東西或使用程式"
-        self.card11 = "意思意思嫌棄完還是會努力解惑的XD"
+        self.card1 = file.readline()
+        self.card2 = file.readline()
+        self.card3 = file.readline()
+        self.card4 = file.readline()
+        self.card5 = file.readline()
 
-        self.card12 = "19歲最後一年青少年呢（嗚嗚怎麼這麼年輕´oωo`）大家都說9字尾會衰，但才沒有呢，看我們玩得多開心(？"
-        self.card13 = "大學就是要這樣在很熱的太陽下玩鬧呀，然後遇到各種神奇的人類、體驗各種神奇的事情，然後盡情體驗"
-        self.card14 = "跟發現，期待你之後的燦爛生活！"
+        self.card6 = file.readline()
+        self.card7 = file.readline()
+        self.card8 = file.readline()
 
-        self.card15 = "最後完全沒有料到會是在這種情況下做出一個這麼具有遠距精神的卡片XD"
-        self.card16 = "有幾個小彩蛋可以看有沒有成功觸發，成功召喚出氣球跟彩帶就差不多了，剩下就是程式特色（漏洞）了w"
-        self.card17 = "然後這邊我堅持叫做拿手電筒照的牆壁（雖然好像有點沒fu）反正我努力了(ovo)"
-        self.card18 = "希望你會喜歡，然後有「啊！這就是有個資工朋友的感覺！」XD <3"
-        self.card19 = "亦絢ˊˇˋ"
-        self.card20 = "5/22/2021"
+        self.card9 = file.readline()
+        self.card10 = file.readline()
+        self.card11 = file.readline()
+
+        self.card12 = file.readline()
+        self.card13 = file.readline()
+        self.card14 = file.readline()
+
+        self.card15 = file.readline()
+        self.card16 = file.readline()
+        self.card17 = file.readline()
+        self.card18 = file.readline()
+        self.card19 = file.readline()
+        self.card20 = file.readline()
+
+        file.close()
 
 
         font = pygame.font.Font("src/jf-openhuninn-1.1.ttf", 20)
@@ -282,48 +287,7 @@ class Controller:
                 pygame.display.update()
                 self.black.add(self.deadB)
                 self.deadB.empty()
-
-                self.background = pygame.transform.scale((pygame.image.load("src/red.png")), pygame.display.get_window_size())
                 self.background.blit(self.background, (0, 0))
-                y = 56
-                a = 28
-                self.background.blit(self.fontRead1,(70,y))
-                y+=a+14
-                self.background.blit(self.fontRead2,(70,y))
-                y+=a
-                self.background.blit(self.fontRead3,(70,y))
-                y+=a
-                self.background.blit(self.fontRead4,(70,y))
-                y+=a
-                self.background.blit(self.fontRead5,(70,y))
-                y+=a+14
-                self.background.blit(self.fontRead6,(70,y))
-                y+=a
-                self.background.blit(self.fontRead7,(70,y))
-                y+=a
-                self.background.blit(self.fontRead8,(70,y))
-                y+=a+14
-                self.background.blit(self.fontRead9,(70,y))
-                y+=a
-                self.background.blit(self.fontRead10,(70,y))
-                y+=a
-                self.background.blit(self.fontRead11,(70,y))
-                y+=a+14
-                self.background.blit(self.fontRead12,(70,y))
-                y+=a
-                self.background.blit(self.fontRead13,(70,y))
-                y+=a
-                self.background.blit(self.fontRead14,(70,y))
-                y+=a+14
-                self.background.blit(self.fontRead15,(70,y))
-                y+=a
-                self.background.blit(self.fontRead16,(70,y))
-                y+=a
-                self.background.blit(self.fontRead17,(70,y))
-                y+=a
-                self.background.blit(self.fontRead18,(70,y))
-                self.background.blit(self.fontRead19, (840, y))
-                self.background.blit(self.fontRead20, (945, y+35))
 
             while self.state == "PAGE2-1":
                 #exit button
