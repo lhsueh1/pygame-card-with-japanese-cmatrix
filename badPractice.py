@@ -279,48 +279,7 @@ class Controller:
                 pygame.display.update()
                 self.black.add(self.deadB)
                 self.deadB.empty()
-
-                self.background = pygame.transform.scale((pygame.image.load("src/red.png")), pygame.display.get_window_size())
                 self.background.blit(self.background, (0, 0))
-                y = 56
-                a = 28
-                self.background.blit(self.fontRead1,(70,y))
-                y+=a+14
-                self.background.blit(self.fontRead2,(70,y))
-                y+=a
-                self.background.blit(self.fontRead3,(70,y))
-                y+=a
-                self.background.blit(self.fontRead4,(70,y))
-                y+=a
-                self.background.blit(self.fontRead5,(70,y))
-                y+=a+14
-                self.background.blit(self.fontRead6,(70,y))
-                y+=a
-                self.background.blit(self.fontRead7,(70,y))
-                y+=a
-                self.background.blit(self.fontRead8,(70,y))
-                y+=a+14
-                self.background.blit(self.fontRead9,(70,y))
-                y+=a
-                self.background.blit(self.fontRead10,(70,y))
-                y+=a
-                self.background.blit(self.fontRead11,(70,y))
-                y+=a+14
-                self.background.blit(self.fontRead12,(70,y))
-                y+=a
-                self.background.blit(self.fontRead13,(70,y))
-                y+=a
-                self.background.blit(self.fontRead14,(70,y))
-                y+=a+14
-                self.background.blit(self.fontRead15,(70,y))
-                y+=a
-                self.background.blit(self.fontRead16,(70,y))
-                y+=a
-                self.background.blit(self.fontRead17,(70,y))
-                y+=a
-                self.background.blit(self.fontRead18,(70,y))
-                self.background.blit(self.fontRead19, (840, y))
-                self.background.blit(self.fontRead20, (945, y+35))
 
             while self.state == "PAGE2-1":
                 #exit button
