@@ -210,7 +210,7 @@ class Controller:
 
 
                 pygame.display.update()
-                time.sleep(0.1)
+                time.sleep(0.08)
 
                 if i < ((screen_height / font_height) * 2 - 1):
                     i += 1
@@ -302,6 +302,7 @@ class Controller:
                 self.black.add(self.deadB)
                 self.deadB.empty()
                 self.background.blit(self.background, (0, 0))
+                time.sleep(0.08)
 
             while self.state == "PAGE2-1":
                 #exit button
@@ -332,6 +333,7 @@ class Controller:
                 pygame.display.update()
                 self.buttons.remove(self.balloon)
                 self.buttons.remove(self.ribbon)
+                time.sleep(0.08)
 
     def paint_word(self, font, font_width, font_height, word, j, i, yy, screen_height):
         fontRead = font.render(word, True, (random.randint(180, 255), random.randint(180, 255), random.randint(180, 255)))
