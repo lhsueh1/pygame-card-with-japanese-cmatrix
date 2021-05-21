@@ -7,7 +7,7 @@ import src
 
 class Square(pygame.sprite.Sprite):
 
-    def __init__(self, x, y, h, w, image):
+    def __init__(self, x, y, screen_height, screen_width, image):
         '''
           Initalizes Square attributes
           args:
@@ -16,7 +16,7 @@ class Square(pygame.sprite.Sprite):
              image: (image) an image
         '''
         pygame.sprite.Sprite.__init__(self)
-        self.image = pygame.transform.scale((pygame.image.load(image).convert_alpha()), (h,w))
+        self.image = pygame.transform.scale((pygame.image.load(image).convert_alpha()), (screen_height,screen_width))
         self.rect = self.image.get_rect()
         self.rect.x = x
         self.rect.y = y
@@ -26,7 +26,7 @@ class Controller:
     def __init__(self, width=1120, height=672):
         '''
         set up the window
-        args: 
+        args:
               width: (int) the width of the window, defaulted to 1700
               height: (int) the height of the window, defaulted to 920
         '''
@@ -46,7 +46,7 @@ class Controller:
             for column in range((pygame.display.get_window_size()[1])//squareSize + 2):
                 x = 0 + squareSize * row
                 y = 0 + squareSize * column
-                self.black.add(Square(x, y, squareSize, squareSize, "src/black.png"))               
+                self.black.add(Square(x, y, squareSize, squareSize, "src/black.png"))
 
         #dead black
         self.deadB = pygame.sprite.Group()
@@ -119,7 +119,7 @@ class Controller:
         self.fontRead20 = pygame.font.Font("src/jf-openhuninn-1.1.ttf", 16).render(self.card20, False,(0,0,0))
 
         self.state = "PAGE0"
-        self.spaceCheck = False 
+        self.spaceCheck = False
 
 
     def startLoop(self):
@@ -133,16 +133,25 @@ class Controller:
                 #texts[k] += " "
                 texts[k] += space[random.randint(0, len(space)-1)]
 
+        len_max_texts = len(max(texts))
+
         random.shuffle(texts)
 
         random_list = []
-        for k in range(58):
+        for k in range(len_max_texts):
             n = random.randint(1,100)
             random_list.append(n)
 
         i = 0
 
-        w, h = pygame.display.get_surface().get_size()
+        screen_width, screen_height = pygame.display.get_surface().get_size()
+
+
+        # font size: 24 -> (font_width, font_height) = 30, 25
+        # font size: 20 -> (font_width, font_height) = 25, 20
+        font = pygame.font.Font("src/jf-openhuninn-1.1.ttf", 20)
+        font_width = 20
+        font_height = 20
 
 
 
@@ -151,40 +160,40 @@ class Controller:
                 #exit button
                 for event in pygame.event.get():
                     if event.type == pygame.QUIT:
-                        sys.exit()    
+                        sys.exit()
 
                     if event.type == pygame.KEYDOWN and self.spaceCheck:
                         if event.key == pygame.K_SPACE:
                             self.state = "PAGE1"
-                
+
                 if pygame.mouse.get_pressed()[0] and self.unicorn.rect.collidepoint(pygame.mouse.get_pos()):
                     self.spaceCheck = True
 
 
-                # after making the background fill in black, set width to fit size of words
-                #self.components = pygame.sprite.Group((self.square,) + (self.line,))
 
-                h = h - (h % 25)
+                self.background = pygame.transform.scale((pygame.image.load("src/kinda_black.png")), (screen_width,screen_height))
+                # after making the background fill in black, set width to fit size of words
+                screen_height = screen_height - (screen_height % font_height)
 
                 if i == 0:
                     self.screen.blit(self.background, (0, 0))
 
-                font = pygame.font.Font("src/jf-openhuninn-1.1.ttf", 24)
+
 
                 # rows
-                for j in range(w//30):
+                for j in range(screen_width // font_height):
                     ranged_j = j % len(texts)
                     ranged_i = i % (len(texts[ranged_j]) - 1)
-                    if i >= (h / 25): # screen height /25 max words per column
-                        self.paint_blank(j, i, random_list[ranged_j], h)
+                    if i >= (screen_height / font_height): # screen height / font_height max words per column
+                        self.paint_blank(font_width, font_height, j, i, random_list[ranged_j], screen_height)
                     else:
-                        self.paint_word(font, texts[ranged_j][ranged_i], j, i, random_list[ranged_j],h)
+                        self.paint_word(font, font_width, font_height, texts[ranged_j][ranged_i], j, i, random_list[ranged_j],screen_height)
 
 
                 pygame.display.update()
                 time.sleep(0.05)
 
-                if i < ((h / 25) * 2 - 1):
+                if i < ((screen_height / font_height) * 2 - 1):
                     i += 1
                 else:
                     i = 0
@@ -192,12 +201,11 @@ class Controller:
                     random.shuffle(texts)
 
                     random_list = []
-                    for k in range(58):
+                    for k in range(len_max_texts):
                         n = random.randint(1,100)
                         random_list.append(n)
 
 
-                self.background = pygame.transform.scale((pygame.image.load("src/kinda_black.png")), (w,h))
                 #self.screen.blit(self.background, (0, 0))
                 self.unicorns.draw(self.screen)
                 #pygame.display.update()
@@ -347,14 +355,14 @@ class Controller:
                 self.buttons.remove(self.balloon)
                 self.buttons.remove(self.ribbon)
 
-    def paint_word(self, font, word,j, i, yy,h):
+    def paint_word(self, font, font_width, font_height, word, j, i, yy, screen_height):
         fontRead = font.render(word, True,(random.randint(180,255),random.randint(180,255),random.randint(180,255)))
-        self.screen.blit(fontRead,(30 * j, (yy * 25 + 25*i) % h))
+        self.screen.blit(fontRead,(font_width * j, (yy * font_height + font_height*i) % screen_height))
         self.unicorns.draw(self.screen)
 
-    def paint_blank(self, j, i ,yy, h):
-        blank = pygame.transform.scale((pygame.image.load("src/kinda_black.png")), (30,25))
-        self.screen.blit(blank,(30 * j, (yy * 25 + 25*i) % h))
+    def paint_blank(self, font_width, font_height, j, i ,yy, screen_height):
+        blank = pygame.transform.scale((pygame.image.load("src/kinda_black.png")), (font_width, font_height))
+        self.screen.blit(blank,(font_width * j, (yy * font_height + font_height*i) % screen_height))
         self.unicorns.draw(self.screen)
 
 
