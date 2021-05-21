@@ -132,13 +132,14 @@ class Controller:
         f = open("src/bad_apple.txt", encoding="utf-8")
         texts = f.readlines()
 
+        len_max_texts = len(max(texts))
+
         for k in range(len(texts)):
-            for jk in range(58 - len(texts[k])):
+            for jk in range(len_max_texts - len(texts[k])):
                 space = ['按', '空', '白', '鍵']
                 #texts[k] += " "
                 texts[k] += space[random.randint(0, len(space)-1)]
 
-        len_max_texts = len(max(texts))
 
         random.shuffle(texts)
 
@@ -320,13 +321,13 @@ class Controller:
                 self.buttons.remove(self.ribbon)
 
     def paint_word(self, font, font_width, font_height, word, j, i, yy, screen_height):
-        fontRead = font.render(word, True,(random.randint(180,255),random.randint(180,255),random.randint(180,255)))
-        self.screen.blit(fontRead,(font_width * j, (yy * font_height + font_height*i) % screen_height))
+        fontRead = font.render(word, True, (random.randint(180, 255), random.randint(180, 255), random.randint(180, 255)))
+        self.screen.blit(fontRead, (font_width * j, (yy * font_height + font_height*i) % screen_height))
         self.unicorns.draw(self.screen)
 
-    def paint_blank(self, font_width, font_height, j, i ,yy, screen_height):
+    def paint_blank(self, font_width, font_height, j, i , yy, screen_height):
         blank = pygame.transform.scale((pygame.image.load("src/kinda_black.png")), (font_width, font_height))
-        self.screen.blit(blank,(font_width * j, (yy * font_height + font_height*i) % screen_height))
+        self.screen.blit(blank, (font_width * j, (yy * font_height + font_height*i) % screen_height))
         self.unicorns.draw(self.screen)
 
 
