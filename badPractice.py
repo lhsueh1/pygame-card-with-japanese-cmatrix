@@ -134,11 +134,10 @@ class Controller:
 
         len_max_texts = len(max(texts))
 
+        # add space when a line of text is shorter than the longest line
         for k in range(len(texts)):
             for jk in range(len_max_texts - len(texts[k])):
-                space = ['按', '空', '白', '鍵']
-                #texts[k] += " "
-                texts[k] += space[random.randint(0, len(space)-1)]
+                texts[k] += " "
 
 
         random.shuffle(texts)
@@ -172,8 +171,22 @@ class Controller:
                         if event.key == pygame.K_SPACE:
                             self.state = "PAGE1"
 
-                if pygame.mouse.get_pressed()[0] and self.unicorn.rect.collidepoint(pygame.mouse.get_pos()):
-                    self.spaceCheck = True
+                for uni in self.unicorns:
+                    if pygame.mouse.get_pressed()[0] and uni.rect.collidepoint(pygame.mouse.get_pos()):
+                        uni.rect.x = -500
+                        uni.rect.y = -500
+                        self.spaceCheck = True
+                        pygame.display.update()
+
+                        # to make those space that added when starting become Chinese charecters
+                        f = open("src/bad_apple.txt", encoding="utf-8")
+                        texts = f.readlines()
+                        random.shuffle(texts)
+                        for k in range(len(texts)):
+                            for jk in range(len_max_texts - len(texts[k])):
+                                space = ['按', '空', '白', '鍵']
+                                texts[k] += space[random.randint(0, len(space)-1)]
+
 
 
 
@@ -197,7 +210,7 @@ class Controller:
 
 
                 pygame.display.update()
-                time.sleep(0.05)
+                time.sleep(0.1)
 
                 if i < ((screen_height / font_height) * 2 - 1):
                     i += 1
