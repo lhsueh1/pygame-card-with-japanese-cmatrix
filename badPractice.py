@@ -77,7 +77,8 @@ class Controller:
         self.card2 = file.readline()
         self.card3 = file.readline()
         self.card4 = file.readline()
-        self.card4 = file.readline()
+        self.card5 = file.readline()
+
         self.card6 = file.readline()
         self.card7 = file.readline()
         self.card8 = file.readline()
@@ -98,6 +99,7 @@ class Controller:
         self.card20 = file.readline()
 
         file.close()
+
 
         font = pygame.font.Font("src/jf-openhuninn-1.1.ttf", 20)
         self.fontRead1 = font.render(self.card1, False,(0,0,0))
