@@ -183,8 +183,8 @@ class Controller:
                     if pygame.mouse.get_pressed()[0] and uni.rect.collidepoint(pygame.mouse.get_pos()):
                         uni.remove()
                         self.spaceCheck = True
-                        #self.screen.blit(self.background, (0, 0))
-                        #pygame.display.flip()
+                        self.screen.blit(self.background, (0, 0))
+                        pygame.display.flip()
 
                         # to make those space that added when starting become Chinese charecters
                         f = open("src/bad_apple.txt", encoding="utf-8")
