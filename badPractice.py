@@ -27,8 +27,8 @@ class Controller:
         '''
         set up the window
         args:
-              width: (int) the width of the window, defaulted to 1700
-              height: (int) the height of the window, defaulted to 920
+              width: (int) the width of the window, defaulted to 1120
+              height: (int) the height of the window, defaulted to 672
         '''
 
         #screen
@@ -69,8 +69,8 @@ class Controller:
         #     y = random.randrange(-70, pygame.display.get_window_size()[1]-300)
         #     self.unicorns.add(Square(x, y, 212, 273, "src/uni.png"))
 
+        #card
         pygame.font.init()
-
         file = open("src/card.txt", encoding="utf-8")
 
         self.card1 = file.readline()
@@ -157,7 +157,6 @@ class Controller:
         font = pygame.font.Font("src/jf-openhuninn-1.1.ttf", 20)
         font_width = 20
         font_height = 20
-
 
 
         while True:
@@ -290,7 +289,6 @@ class Controller:
 
                 self.show.rect.y = 0
                 if pygame.mouse.get_pressed()[0] and self.show.rect.collidepoint(pygame.mouse.get_pos()):
-                    #time.sleep(0.3)
                     self.state = "PAGE2"
 
 
@@ -302,7 +300,7 @@ class Controller:
                 self.black.add(self.deadB)
                 self.deadB.empty()
                 self.background.blit(self.background, (0, 0))
-                time.sleep(0.08)
+                time.sleep(0.08) #for better performance
 
             while self.state == "PAGE2-1":
                 #exit button
@@ -333,7 +331,7 @@ class Controller:
                 pygame.display.update()
                 self.buttons.remove(self.balloon)
                 self.buttons.remove(self.ribbon)
-                time.sleep(0.08)
+                time.sleep(0.08)  #for better performance
 
     def paint_word(self, font, font_width, font_height, word, j, i, yy, screen_height):
         fontRead = font.render(word, True, (random.randint(180, 255), random.randint(180, 255), random.randint(180, 255)))
@@ -344,9 +342,6 @@ class Controller:
         blank = pygame.transform.scale((pygame.image.load("src/kinda_black.png")), (font_width, font_height))
         self.screen.blit(blank, (font_width * j, (yy * font_height + font_height*i) % screen_height))
         self.unicorns.draw(self.screen)
-
-
-
 
 
 def main():
