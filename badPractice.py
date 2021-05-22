@@ -130,13 +130,14 @@ class Controller:
         self.state = "PAGE0"
         self.spaceCheck = False
 
-
-
-
-
-
-
     def startLoop(self):
+        '''
+        main part, 
+        PAGE0: cmatrix
+        PAGE1 & PAGE2: generating the card(background), preperation for PAGE1-1 & 2-1
+        PAGE1-1: light off
+        PAGE2-1: light on
+        '''
 
         f = open("src/bad_apple.txt", encoding="utf-8")
         texts = f.readlines()
@@ -148,7 +149,6 @@ class Controller:
             for jk in range(len_max_texts - len(texts[k])):
                 texts[k] += " "
 
-
         random.shuffle(texts)
 
         random_list = []
@@ -159,7 +159,6 @@ class Controller:
         i = 0
 
         screen_width, screen_height = pygame.display.get_surface().get_size()
-
 
         # font size: 24 -> (font_width, font_height) = 30, 25
         # font size: 20 -> (font_width, font_height) = 25, 20
@@ -207,7 +206,7 @@ class Controller:
 
 
 
-                # rows
+                # columns
                 for j in range(screen_width // font_width):
                     ranged_j = j % len(texts)
                     ranged_i = i % (len(texts[ranged_j]) - 1)
@@ -243,7 +242,6 @@ class Controller:
                         n = random.randint(1,100)
                         random_list.append(n)
 
-                #print(i)
 
                 #self.screen.blit(self.background, (0, 0))
                 self.unicorns.draw(self.screen)
@@ -291,9 +289,6 @@ class Controller:
                 self.background.blit(self.fontRead18,(70,y))
                 self.background.blit(self.fontRead19, (840, y))
                 self.background.blit(self.fontRead20, (945, y+30))
-
-                # self.screen.blit(self.background, (0, 0))
-                # pygame.display.update()
                 
                 if self.state == "PAGE1":
                     self.state = "PAGE1-1"
@@ -306,15 +301,16 @@ class Controller:
                     if event.type == pygame.QUIT:
                         sys.exit()
 
+                #flash light
                 for i in self.black:
                     if i.rect.collidepoint(pygame.mouse.get_pos()):
                         self.black.remove(i)
                         self.deadB.add(i)
 
+                #trigger button
                 self.show.rect.y = 0
                 if pygame.mouse.get_pressed()[0] and self.show.rect.collidepoint(pygame.mouse.get_pos()):
                     self.state = "PAGE2"
-
 
                 # redraw the entire screen
                 self.screen.blit(self.background, (0, 0))
@@ -332,12 +328,13 @@ class Controller:
                     if event.type == pygame.QUIT:
                         sys.exit()
 
+                #trigger button
                 self.show.rect.y = 70
-
                 if pygame.mouse.get_pressed()[0] and self.show.rect.collidepoint(pygame.mouse.get_pos()):
                     #time.sleep(1)
                     self.state = "PAGE1"
 
+                #ballon and ribbon
                 if pygame.mouse.get_pressed()[0]:
                     self.buttons.add(self.balloon)
                     self.balloon.rect.x = pygame.mouse.get_pos()[0]-56
@@ -347,9 +344,7 @@ class Controller:
                     self.ribbon.rect.x = pygame.mouse.get_pos()[0]-56
                     self.ribbon.rect.y = pygame.mouse.get_pos()[1]-56
 
-
                 #redraw the entire screen
-
                 self.screen.blit(self.background, (0, 0))
                 self.buttons.draw(self.screen)
                 pygame.display.update()
@@ -358,16 +353,34 @@ class Controller:
                 time.sleep(0.08)  #for better performance
 
     def paint_word(self, font, font_width, font_height, word, j, i, yy, screen_height_adjusted):
+        '''
+        paint word for cmatrix(PAGE0)
+        args:
+            word: the word to be printed 
+            j: row number (whithin a row)
+            i: column number (while loop count)
+            yy: the y coordinate 
+            screen_height_adjusted: used only when screen height is adjusted
+
+        '''
         fontRead = font.render(word, True, (random.randint(180, 255), random.randint(180, 255), random.randint(180, 255)))
         self.screen.blit(fontRead, (font_width * j, (yy * font_height + font_height*i) % screen_height_adjusted))
         self.unicorns.draw(self.screen)
 
     def paint_blank(self, font_width, font_height, j, i , yy, screen_height_adjusted):
+        '''
+        paint blank for cmatrix(PAGE0)
+        args:
+            font:
+            j: row number (whithin a row)
+            i: column number (while loop count)
+            yy: the y coordinate 
+            screen_height_adjusted: used only when screen height is adjusted
+
+        '''
         blank = pygame.transform.scale((pygame.image.load("src/kinda_black.png")), (font_width, font_height))
         self.screen.blit(blank, (font_width * j, (yy * font_height + font_height*i) % screen_height_adjusted))
         self.unicorns.draw(self.screen)
-
-
 
 
 def main():
