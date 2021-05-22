@@ -243,7 +243,6 @@ class Controller:
                         n = random.randint(1,100)
                         random_list.append(n)
 
-                print(i)
 
                 #self.screen.blit(self.background, (0, 0))
                 self.unicorns.draw(self.screen)
