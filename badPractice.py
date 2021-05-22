@@ -21,6 +21,10 @@ class Square(pygame.sprite.Sprite):
         self.rect.x = x
         self.rect.y = y
 
+    def remove(self):
+        self.rect.x = -500
+        self.rect.y = -500
+
 
 class Controller:
     def __init__(self, width=1120, height=672):
@@ -127,6 +131,11 @@ class Controller:
         self.spaceCheck = False
 
 
+
+
+
+
+
     def startLoop(self):
 
         f = open("src/bad_apple.txt", encoding="utf-8")
@@ -172,10 +181,10 @@ class Controller:
 
                 for uni in self.unicorns:
                     if pygame.mouse.get_pressed()[0] and uni.rect.collidepoint(pygame.mouse.get_pos()):
-                        uni.rect.x = -500
-                        uni.rect.y = -500
+                        uni.remove()
                         self.spaceCheck = True
-                        pygame.display.update()
+                        #self.screen.blit(self.background, (0, 0))
+                        #pygame.display.flip()
 
                         # to make those space that added when starting become Chinese charecters
                         f = open("src/bad_apple.txt", encoding="utf-8")
@@ -342,6 +351,8 @@ class Controller:
         blank = pygame.transform.scale((pygame.image.load("src/kinda_black.png")), (font_width, font_height))
         self.screen.blit(blank, (font_width * j, (yy * font_height + font_height*i) % screen_height))
         self.unicorns.draw(self.screen)
+
+
 
 
 def main():
