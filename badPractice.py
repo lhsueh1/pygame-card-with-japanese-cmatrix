@@ -200,7 +200,7 @@ class Controller:
 
                 self.background = pygame.transform.scale((pygame.image.load("src/kinda_black.png")), (screen_width,screen_height))
                 # after making the background fill in black, set width to fit size of words
-                screen_height = screen_height - (screen_height % font_height)
+                screen_height_adjusted = screen_height - (screen_height % font_height)
 
                 if i == 0:
                     self.screen.blit(self.background, (0, 0))
@@ -211,16 +211,16 @@ class Controller:
                 for j in range(screen_width // font_width):
                     ranged_j = j % len(texts)
                     ranged_i = i % (len(texts[ranged_j]) - 1)
-                    if i >= (screen_height / font_height): # screen height / font_height max words per column
-                        self.paint_blank(font_width, font_height, j, i, random_list[ranged_j], screen_height)
+                    if i >= (screen_height_adjusted / font_height): # screen height / font_height max words per column
+                        self.paint_blank(font_width, font_height, j, i, random_list[ranged_j], screen_height_adjusted)
                     else:
-                        self.paint_word(font, font_width, font_height, texts[ranged_j][ranged_i], j, i, random_list[ranged_j],screen_height)
+                        self.paint_word(font, font_width, font_height, texts[ranged_j][ranged_i], j, i, random_list[ranged_j],screen_height_adjusted)
 
 
                 pygame.display.update()
                 time.sleep(0.08)
 
-                if i < ((screen_height / font_height) * 2 - 1):
+                if i < ((screen_height_adjusted / font_height) * 2 - 1):
                     i += 1
                 else:
                     i = 0
@@ -342,14 +342,14 @@ class Controller:
                 self.buttons.remove(self.ribbon)
                 time.sleep(0.08)  #for better performance
 
-    def paint_word(self, font, font_width, font_height, word, j, i, yy, screen_height):
+    def paint_word(self, font, font_width, font_height, word, j, i, yy, screen_height_adjusted):
         fontRead = font.render(word, True, (random.randint(180, 255), random.randint(180, 255), random.randint(180, 255)))
-        self.screen.blit(fontRead, (font_width * j, (yy * font_height + font_height*i) % screen_height))
+        self.screen.blit(fontRead, (font_width * j, (yy * font_height + font_height*i) % screen_height_adjusted))
         self.unicorns.draw(self.screen)
 
-    def paint_blank(self, font_width, font_height, j, i , yy, screen_height):
+    def paint_blank(self, font_width, font_height, j, i , yy, screen_height_adjusted):
         blank = pygame.transform.scale((pygame.image.load("src/kinda_black.png")), (font_width, font_height))
-        self.screen.blit(blank, (font_width * j, (yy * font_height + font_height*i) % screen_height))
+        self.screen.blit(blank, (font_width * j, (yy * font_height + font_height*i) % screen_height_adjusted))
         self.unicorns.draw(self.screen)
 
 
