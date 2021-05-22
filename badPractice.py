@@ -199,7 +199,7 @@ class Controller:
 
 
                 # rows
-                for j in range(screen_width // font_height):
+                for j in range(screen_width // font_width):
                     ranged_j = j % len(texts)
                     ranged_i = i % (len(texts[ranged_j]) - 1)
                     if i >= (screen_height / font_height): # screen height / font_height max words per column
