@@ -359,7 +359,7 @@ class Controller:
             word: the word to be printed 
             j: row number (whithin a row)
             i: column number (while loop count)
-            yy: the y coordinate 
+            yy: the random initial y coordinate 
             screen_height_adjusted: used only when screen height is adjusted
 
         '''
@@ -374,7 +374,7 @@ class Controller:
             font:
             j: row number (whithin a row)
             i: column number (while loop count)
-            yy: the y coordinate 
+            yy: the random initial y coordinate 
             screen_height_adjusted: used only when screen height is adjusted
 
         '''
