@@ -27,7 +27,7 @@ class Square(pygame.sprite.Sprite):
 
 
 class Controller:
-    def __init__(self, width=1120, height=672):
+    def __init__(self, width=1120, height=660):
         '''
         set up the window
         args:
@@ -167,6 +167,8 @@ class Controller:
         font_width = 20
         font_height = 20
 
+        screen_height_adjusted = screen_height - (screen_height % font_height)
+
 
         while True:
             while self.state == "PAGE0":
@@ -184,25 +186,21 @@ class Controller:
                         uni.remove()
                         self.spaceCheck = True
                         self.screen.blit(self.background, (0, 0))
-                        pygame.display.update()
+                        # pygame.display.update()
 
-                        # to make those space that added when starting become Chinese charecters
-                        f = open("src/bad_apple.txt", encoding="utf-8")
-                        texts = f.readlines()
-                        random.shuffle(texts)
-                        for k in range(len(texts)):
-                            for jk in range(len_max_texts - len(texts[k])):
-                                space = ['按', '空', '白', '鍵']
-                                texts[k] += space[random.randint(0, len(space)-1)]
-                                
-                        self.screen.blit(self.background, (0, 0))
-                        pygame.display.update()
-
+                        # repaint_everything
+                        for i_temp in range(i):
+                            for j_temp in range(screen_width // font_width):
+                                ranged_j_temp = j_temp % len(texts)
+                                ranged_i_temp = i_temp % (len(texts[ranged_j_temp]) - 1)
+                                if i_temp >= (screen_height_adjusted / font_height): # screen height / font_height max words per column
+                                    self.paint_blank(font_width, font_height, j_temp, i_temp, random_list[ranged_j_temp], screen_height_adjusted)
+                                else:
+                                    self.paint_word(font, font_width, font_height, texts[ranged_j_temp][ranged_i_temp], j_temp, i_temp, random_list[ranged_j_temp],screen_height_adjusted)
 
 
                 self.background = pygame.transform.scale((pygame.image.load("src/kinda_black.png")), (screen_width,screen_height))
                 # after making the background fill in black, set width to fit size of words
-                screen_height_adjusted = screen_height - (screen_height % font_height)
 
                 if i == 0:
                     self.screen.blit(self.background, (0, 0))
@@ -227,6 +225,17 @@ class Controller:
                 else:
                     i = 0
 
+                    # if unicorn has been clicked, regenerate text from txt file
+                    if self.spaceCheck:
+                        # to make those spaces that added when starting become Chinese charecters
+                        f = open("src/bad_apple.txt", encoding="utf-8")
+                        texts = f.readlines()
+                        random.shuffle(texts)
+                        for k in range(len(texts)):
+                            for jk in range(len_max_texts - len(texts[k])):
+                                space = ['按', '空', '白', '鍵']
+                                texts[k] += space[random.randint(0, len(space)-1)]
+
                     random.shuffle(texts)
 
                     random_list = []
@@ -234,6 +243,7 @@ class Controller:
                         n = random.randint(1,100)
                         random_list.append(n)
 
+                #print(i)
 
                 #self.screen.blit(self.background, (0, 0))
                 self.unicorns.draw(self.screen)
@@ -282,6 +292,9 @@ class Controller:
                 self.background.blit(self.fontRead19, (840, y))
                 self.background.blit(self.fontRead20, (945, y+30))
 
+                # self.screen.blit(self.background, (0, 0))
+                # pygame.display.update()
+                
                 if self.state == "PAGE1":
                     self.state = "PAGE1-1"
                 if self.state == "PAGE2":
@@ -303,7 +316,7 @@ class Controller:
                     self.state = "PAGE2"
 
 
-                #redraw the entire screen
+                # redraw the entire screen
                 self.screen.blit(self.background, (0, 0))
                 self.buttons.draw(self.screen)
                 self.black.draw(self.screen)
@@ -311,7 +324,7 @@ class Controller:
                 self.black.add(self.deadB)
                 self.deadB.empty()
                 self.background.blit(self.background, (0, 0))
-                time.sleep(0.08) #for better performance
+                time.sleep(0.05) #for better performance
 
             while self.state == "PAGE2-1":
                 #exit button
