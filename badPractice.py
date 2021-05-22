@@ -184,7 +184,7 @@ class Controller:
                         uni.remove()
                         self.spaceCheck = True
                         self.screen.blit(self.background, (0, 0))
-                        pygame.display.flip()
+                        pygame.display.update()
 
                         # to make those space that added when starting become Chinese charecters
                         f = open("src/bad_apple.txt", encoding="utf-8")
@@ -194,7 +194,9 @@ class Controller:
                             for jk in range(len_max_texts - len(texts[k])):
                                 space = ['按', '空', '白', '鍵']
                                 texts[k] += space[random.randint(0, len(space)-1)]
-
+                                
+                        self.screen.blit(self.background, (0, 0))
+                        pygame.display.update()
 
 
 
