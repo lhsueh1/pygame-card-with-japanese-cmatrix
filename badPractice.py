@@ -320,7 +320,7 @@ class Controller:
                 self.black.add(self.deadB)
                 self.deadB.empty()
                 self.background.blit(self.background, (0, 0))
-                time.sleep(0.05) #for better performance
+                #time.sleep(0.05) #for better performance
 
             while self.state == "PAGE2-1":
                 #exit button
@@ -350,7 +350,7 @@ class Controller:
                 pygame.display.update()
                 self.buttons.remove(self.balloon)
                 self.buttons.remove(self.ribbon)
-                time.sleep(0.08)  #for better performance
+                #time.sleep(0.08)  #for better performance
 
     def paint_word(self, font, font_width, font_height, word, j, i, yy, screen_height_adjusted):
         '''
