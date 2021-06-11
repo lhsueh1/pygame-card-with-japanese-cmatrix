@@ -1,5 +1,5 @@
 # pygame card with japanese cmatrix
-#### with [@jerry960331](github.com/jerry960331)
+#### with [@jerry960331](https://github.com/jerry960331)
 
 
 ------
